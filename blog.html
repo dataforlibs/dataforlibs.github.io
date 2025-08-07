@@ -67,122 +67,122 @@
     
     <!-- Custom styles to enhance the existing design -->
     <style>
-        /* Enhanced mobile navigation styles */
-        @media (max-width: 991px) {
-            .navigation-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background-color: white;
-                padding: 20px;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-                border-top: 1px solid #e5e5e5;
-                z-index: 999;
-            }
-            
-            .w--open .navigation-menu {
-                display: block !important;
-            }
-            
-            .navigation-link {
-                display: block !important;
-                padding: 15px 0;
-                border-bottom: 1px solid #f0f0f0;
-                font-size: 16px;
-                color: #333;
-                text-decoration: none;
-                transition: color 0.2s ease;
-                pointer-events: auto !important;
-                cursor: pointer !important;
-                position: relative;
-                z-index: 10;
-            }
-            
-            .navigation-link:last-child {
-                border-bottom: none;
-            }
-            
-            .navigation-link:hover,
-            .navigation-link.w--current {
-                color: #007bff;
-            }
-            
-            .hamburger-button {
-                display: block !important;
-                cursor: pointer;
-                padding: 10px;
-                position: relative;
-                z-index: 1000;
-                background: none;
-                border: none;
-                width: 44px;
-                height: 44px;
-            }
-            
-            .w-icon-nav-menu {
-                width: 24px;
-                height: 18px;
-                position: relative;
-                background: transparent;
-                margin: auto;
-                display: block;
-            }
-            
-            /* Simple hamburger lines using box-shadow */
-            .w-icon-nav-menu {
-                background-color: #333;
-                height: 2px;
-                width: 24px;
-                position: relative;
-                top: 50%;
-                transform: translateY(-50%);
-                box-shadow: 
-                    0 -6px 0 #333,
-                    0 6px 0 #333;
-                transition: all 0.3s ease;
-            }
-            
-            /* Alternative: Use Unicode hamburger symbol */
-            .hamburger-button::after {
-                content: "☰";
-                font-size: 24px;
-                color: #333;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                line-height: 1;
-            }
-            
-            /* Hide the original icon when using Unicode */
-            .hamburger-button .w-icon-nav-menu {
-                display: none;
-            }
-        }
-        
-        /* Desktop navigation */
-        @media (min-width: 992px) {
-            .navigation-menu {
-                display: flex !important;
-                position: static;
-                background: transparent;
-                box-shadow: none;
-                padding: 0;
-            }
-            
-            .hamburger-button {
-                display: none !important;
-            }
-            
-            .navigation-link {
-                display: inline-block !important;
-                padding: 0 20px;
-                border-bottom: none;
-            }
-        }
-        
+       /* Replace the existing navigation styles in your HTML files with these styles */
+
+/* Updated Navigation Styles - Add this to your <style> section */
+.navigation-bar {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 0;
+}
+
+.navigation-bar .w-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.brand-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2d3748;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.navigation-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.navigation-link {
+    text-decoration: none;
+    color: #4a5568;
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 8px 0;
+}
+
+.navigation-link:hover {
+    color: #2d3748;
+}
+
+.navigation-link.w--current {
+    color: #3182ce;
+    font-weight: 600;
+}
+
+.navigation-link.w--current::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #3182ce;
+}
+
+/* Add margin to body to account for fixed navigation */
+body {
+    margin-top: 80px;
+}
+
+/* Mobile styles update */
+@media (max-width: 991px) {
+    .navigation-bar .w-container {
+        padding: 0 20px;
+    }
+    
+    .navigation-menu {
+        display: none;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        gap: 20px;
+        z-index: 999;
+    }
+    
+    .w--open .navigation-menu {
+        display: flex !important;
+    }
+    
+    .navigation-link {
+        display: block !important;
+        padding: 15px 0;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 16px;
+        text-decoration: none;
+        width: 100%;
+    }
+    
+    .navigation-link:last-child {
+        border-bottom: none;
+    }
+}
         .blog-meta {
             color: #888;
             font-size: 0.9em;
