@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Methods Note — Stolen Treasures / Украдені скарби</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #1A3C6E;
+      --gold:      #C8A94A;
+      --gold-light:#F5EDD3;
+      --bg:        #FAFAFA;
+      --bg-section:#EEF2F8;
+      --text:      #1a1a1a;
+      --muted:     #555;
+      --border:    #D0D7E3;
+      --max:       860px;
+    }
+
+    body {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* ── Page wrapper ── */
+    .methods-page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 48px 32px 80px;
+    }
+
+    /* ── Title block ── */
+    .title-block {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 3px solid var(--gold);
+    }
+    .label-tag {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .title-block h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+    .title-block .subtitle {
+      font-size: 14px;
+      font-style: italic;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ── Meta table ── */
+    .meta-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+    }
+    .meta-table td {
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .meta-table td:first-child {
+      font-weight: 600;
+      color: var(--navy);
+      background: var(--bg-section);
+      width: 140px;
+      white-space: nowrap;
+    }
+    .meta-table td:last-child { color: var(--muted); }
+    .meta-table a { color: var(--navy); }
+
+    /* ── Section headings ── */
+    h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 40px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--bg-section);
+    }
+    h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      margin: 28px 0 10px;
+    }
+
+    /* ── Body text ── */
+    p { margin-bottom: 14px; }
+
+    /* ── Key-value tables (reusable) ── */
+    .kv-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 13.5px;
+    }
+    .kv-table td {
+      padding: 9px 14px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .kv-table td:first-child {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      background: var(--bg-section);
+      color: var(--navy);
+      width: 200px;
+    }
+    .kv-table code {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      background: #eee;
+      padding: 1px 4px;
+      border-radius: 2px;
+    }
+
+    /* ── Bullet lists ── */
+    ul.methods-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 20px;
+    }
+    ul.methods-list li {
+      padding: 6px 0 6px 24px;
+      position: relative;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    ul.methods-list li::before {
+      content: "•";
+      position: absolute;
+      left: 6px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+    ul.methods-list li strong { color: var(--navy); }
+
+    /* ── Callout box ── */
+    .callout {
+      border-left: 4px solid var(--gold);
+      background: var(--gold-light);
+      padding: 14px 18px;
+      margin: 20px 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .callout .callout-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .callout p {
+      font-size: 14px;
+      font-style: italic;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ── Citation block ── */
+    .citation-block {
+      background: var(--bg-section);
+      border: 1px solid var(--border);
+      padding: 16px 20px;
+      margin: 12px 0;
+      font-size: 13.5px;
+      line-height: 1.7;
+      border-radius: 4px;
+    }
+
+    /* ── Footer ── */
+    .methods-footer {
+      margin-top: 56px;
+      padding-top: 20px;
+      border-top: 2px solid var(--gold);
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+
+    /* ── Print styles ── */
+    @media print {
+      body { background: white; }
+      .methods-page { padding: 20px; }
+      h2 { break-before: avoid; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .methods-page { padding: 24px 16px 60px; }
+      .meta-table td:first-child, .kv-table td:first-child { width: auto; }
+      .meta-table, .kv-table { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+<article class="methods-page">
+
+  <!-- Title -->
+  <div class="title-block">
+    <div class="label-tag">Methods Note</div>
+    <h1>Stolen Treasures / Украдені скарби</h1>
+    <p class="subtitle">A Digital Visualization of Ukrainian Cultural Artifacts in Russian Museum Collections</p>
+  </div>
+
+  <!-- Overview -->
+  <table class="meta-table">
+    <tr><td>Tool URL</td><td><a href="https://dataforlibs.github.io/ukrainian-collections-app/" target="_blank">dataforlibs.github.io/ukrainian-collections-app</a></td></tr>
+    <tr><td>Repository</td><td><a href="https://github.com/dataforlibs/ukrainian-collections-app" target="_blank">github.com/dataforlibs/ukrainian-collections-app</a></td></tr>
+    <tr><td>Version</td><td>2.0 — March 2025</td></tr>
+    <tr><td>Technology</td><td>React 18, Firebase Firestore, D3.js, i18n (EN/UK)</td></tr>
+    <tr><td>Author</td><td>Olha Buchel, PhD — Library &amp; Information Science / Visualization</td></tr>
+    <tr><td>Context</td><td>Developed in response to the ongoing documentation of Russian state seizure of Ukrainian cultural heritage following the 2022 full-scale invasion</td></tr>
+  </table>
+
+  <!-- 1 -->
+  <h2>1. Purpose and Scope</h2>
+  <p>
+    <em>Stolen Treasures</em> is a bilingual (English/Ukrainian) interactive visualization cataloguing Ukrainian archaeological and cultural artifacts currently held in Russian state museum collections — primarily the State Historical Museum (SHM, Moscow) and the State Hermitage Museum (St. Petersburg). The tool makes an otherwise dispersed and inaccessible body of documentation queryable, filterable, and shareable by researchers, journalists, legal practitioners, and the Ukrainian public.
+  </p>
+  <p>The scope is deliberately bounded:</p>
+  <ul class="methods-list">
+    <li>Artifacts of documented Ukrainian provenance (archaeological site, regional museum attribution, or collector record)</li>
+    <li>Held in Russian federal museum collections as of the tool's data freeze date</li>
+    <li>Where sufficient metadata exists to display origin, period, object type, and current holding institution</li>
+  </ul>
+  <div class="callout">
+    <div class="callout-label">Scope caveat</div>
+    <p>The tool does not claim completeness. It represents artifacts for which documentation was recoverable from open sources. The true scale of displaced Ukrainian cultural property is substantially larger.</p>
+  </div>
+
+  <!-- 2 -->
+  <h2>2. Data Sources</h2>
+
+  <h3>2.1 Primary Sources</h3>
+  <table class="kv-table">
+    <tr>
+      <td>Texty.org.ua</td>
+      <td>Ukrainian investigative journalism platform; primary data partner. Texty compiled artifact records from public Russian museum catalogs, Scythian gold repatriation case documents, and the Crimea/Netherlands legal proceedings (2014–2023).</td>
+    </tr>
+    <tr>
+      <td>Russian museum catalogs</td>
+      <td>State Historical Museum (GIM) online catalog and Hermitage Museum open collection portal, accessed programmatically and manually during 2022–2024. These are public-facing catalogs; no proprietary data was scraped.</td>
+    </tr>
+    <tr>
+      <td>UNESCO / ICOM Red Lists</td>
+      <td>UNESCO Emergency Red List of Ukrainian Cultural Objects at Risk (2022) used as a validation cross-reference for artifact category classification.</td>
+    </tr>
+    <tr>
+      <td>Legal case records</td>
+      <td>Court filings and expert witness reports from the Amsterdam Court of Appeal proceedings (Scythian gold case) provided artifact-level metadata for a subset of Crimean items.</td>
+    </tr>
+  </table>
+
+  <h3>2.2 Data Schema</h3>
+  <p>Each artifact record in the Firebase Firestore database contains the following fields:</p>
+  <table class="kv-table">
+    <tr><td><code>id</code></td><td>Unique identifier (auto-generated)</td></tr>
+    <tr><td><code>name / name_uk</code></td><td>Object name in English and Ukrainian</td></tr>
+    <tr><td><code>museum</code></td><td>Holding institution (SHM or Hermitage)</td></tr>
+    <tr><td><code>origin_region</code></td><td>Ukrainian region of origin (oblast or historical territory)</td></tr>
+    <tr><td><code>period / date</code></td><td>Historical period; BCE/CE date range where known</td></tr>
+    <tr><td><code>category</code></td><td>Object type (e.g., Jewellery, Weapon, Vessel, Manuscript)</td></tr>
+    <tr><td><code>material</code></td><td>Primary material (e.g., Gold, Bronze, Ceramic)</td></tr>
+    <tr><td><code>image_url</code></td><td>Link to museum catalog image (where publicly available)</td></tr>
+    <tr><td><code>source_url</code></td><td>Link to source documentation</td></tr>
+    <tr><td><code>notes / notes_uk</code></td><td>Provenance notes; bilingual</td></tr>
+  </table>
+
+  <h3>2.3 Data Currency</h3>
+  <p>
+    Data was compiled between 2022 and early 2025. The tool does not implement automated synchronization with museum APIs. Updates require manual revision of the Firestore database. The data freeze date for the current release is <strong>March 2025</strong>.
+  </p>
+
+  <!-- 3 -->
+  <h2>3. Technical Implementation</h2>
+
+  <h3>3.1 Architecture</h3>
+  <ul class="methods-list">
+    <li><strong>Firebase Firestore —</strong> real-time database for artifact records and bilingual metadata</li>
+    <li><strong>React 18 —</strong> component rendering; lazy-loaded routes</li>
+    <li><strong>D3.js —</strong> SVG geographic visualization of Ukrainian regions with artifact density</li>
+    <li><strong>i18next —</strong> bilingual rendering (EN/UK) with language toggle</li>
+    <li><strong>GitHub Pages —</strong> static hosting; Vite build pipeline</li>
+  </ul>
+
+  <h3>3.2 BCE/CE Date Handling</h3>
+  <p>
+    Historical artifacts frequently span BCE periods. The tool implements a signed-integer date schema: BCE dates are stored as negative integers (e.g., 4th century BCE = −399 to −300), CE dates as positive. The display layer converts these to human-readable BCE/CE strings. This avoids the ambiguity of string-based date fields and enables chronological sorting and filtering across the full temporal range of the collection (approximately 3000 BCE to the 19th century CE).
+  </p>
+
+  <h3>3.3 Geographic Mapping</h3>
+  <p>
+    Artifact origins are mapped to contemporary Ukrainian oblasts where attribution is known. Historical provenance terms (e.g., Scythia, Crimea, Pontic steppe) are mapped to the modern administrative regions that encompass those territories. Where attribution is to a broad region rather than a specific site, the artifact is assigned to the centroid oblast for display purposes. The mapping uses GeoJSON boundaries of Ukrainian oblasts (pre-2022 administrative divisions) as the reference geography.
+  </p>
+
+  <h3>3.4 Filtering and Search</h3>
+  <p>
+    Client-side filtering is applied across five dimensions simultaneously: museum, region, period, category, and material. Search is implemented as a case-insensitive substring match across the <code>name</code>, <code>origin_region</code>, and <code>notes</code> fields in the currently selected language. The full dataset is loaded into the browser on initialization, which is feasible at the current collection size (~2,000 records) but would require pagination at larger scale.
+  </p>
+
+  <!-- 4 -->
+  <h2>4. Limitations</h2>
+
+  <div class="callout">
+    <div class="callout-label">Fundamental limitation</div>
+    <p>This tool documents what can be documented from open sources. The deliberate opacity of Russian museum cataloging practices means significant quantities of displaced Ukrainian cultural property remain unrecorded in any accessible form.</p>
+  </div>
+
+  <ul class="methods-list">
+    <li><strong>Coverage gaps:</strong> Records are limited to objects that appear in publicly accessible Russian museum catalogs or in legal/journalistic documentation. Objects in storage, uncataloged acquisitions, and items transferred to private collections are not captured.</li>
+    <li><strong>Attribution uncertainty:</strong> Provenance assignment to a Ukrainian region relies on the accuracy of the source documentation. Some records carry contested or imprecise attributions that are reproduced as-is with source citations.</li>
+    <li><strong>Image availability:</strong> Approximately 60–70% of records have associated images. Copyright for museum catalog images rests with the holding institutions; the tool links to rather than hosts images where possible.</li>
+    <li><strong>No legal determination:</strong> The tool documents displacement as a factual matter of museum custody. It does not adjudicate legal ownership, which is subject to ongoing international proceedings. The term "stolen" in the title reflects the position of Ukrainian law and international cultural heritage conventions; the tool presents evidence, not verdicts.</li>
+    <li><strong>Static data:</strong> The database is not updated in real time. Changes after March 2025 are not reflected.</li>
+    <li><strong>Language completeness:</strong> Ukrainian-language fields were prioritized for objects with clear Ukrainian archival sources; English fields are more complete for objects documented primarily in Western sources.</li>
+  </ul>
+
+  <!-- 5 -->
+  <h2>5. Validation</h2>
+
+  <h3>5.1 Source Cross-Referencing</h3>
+  <p>
+    Each artifact record was cross-referenced against at least two independent sources where possible. For the Scythian gold subset, court-verified inventories from the Amsterdam proceedings serve as the primary validation source. For broader SHM and Hermitage records, Texty.org.ua editorial review and UNESCO Red List cross-referencing provide secondary validation.
+  </p>
+
+  <h3>5.2 Metadata Completeness Audit</h3>
+  <p>Prior to publication, a completeness audit was conducted across all records, classifying each field as:</p>
+  <table class="kv-table">
+    <tr><td>Complete</td><td>Value present and sourced</td></tr>
+    <tr><td>Partial</td><td>Value present but uncertain or approximate (e.g., century-level date range)</td></tr>
+    <tr><td>Missing</td><td>No reliable source found; field left null</td></tr>
+  </table>
+  <p>Records with fewer than four complete core fields (name, museum, origin_region, period) were excluded from the published dataset pending further documentation.</p>
+
+  <h3>5.3 Technical Validation</h3>
+  <p>
+    The application was tested across current versions of Chrome, Firefox, Safari, and Edge. Bilingual rendering was reviewed by a native Ukrainian speaker. BCE/CE date display was validated against a manually constructed test set covering edge cases (year 0 boundary, multi-century ranges, approximate dates).
+  </p>
+
+  <h3>5.4 Peer Review Status</h3>
+  <p>
+    The tool has not been formally peer-reviewed as a scholarly publication. The underlying data compilation by Texty.org.ua has been reviewed by their editorial process and cited in journalistic and legal contexts. A methodology paper is in preparation.
+  </p>
+
+  <!-- 6 -->
+  <h2>6. Ethical Considerations</h2>
+  <ul class="methods-list">
+    <li><strong>Dignity of representation:</strong> Objects are presented as cultural artifacts with historical significance, not as commodities or items in a legal inventory.</li>
+    <li><strong>Source transparency:</strong> Every record includes a <code>source_url</code> field linking to the documentation basis. Claims without verifiable sources are flagged as uncertain.</li>
+    <li><strong>Dual-use risk:</strong> The tool does not publish precise excavation coordinates or estimated market values.</li>
+    <li><strong>Institutional relationships:</strong> The tool does not access Russian museum systems beyond their publicly accessible web interfaces. No authentication systems were circumvented.</li>
+  </ul>
+
+  <!-- 7 -->
+  <h2>7. Recommended Citation</h2>
+
+  <p><strong>Tool:</strong></p>
+  <div class="citation-block">
+    Buchel, O. (2025). <em>Stolen Treasures / Украдені скарби: A digital visualization of Ukrainian cultural artifacts in Russian museum collections</em> [Web application]. Data Science for Libraries. <a href="https://dataforlibs.github.io/ukrainian-collections-app/" target="_blank">https://dataforlibs.github.io/ukrainian-collections-app/</a>
+  </div>
+
+  <p><strong>Data source:</strong></p>
+  <div class="citation-block">
+    Texty.org.ua Investigative Journalism Team (2022–2025). <em>Ukrainian cultural heritage displacement database</em> [Dataset]. Texty.org.ua. <a href="https://texty.org.ua" target="_blank">https://texty.org.ua</a>
+  </div>
+
+  <!-- 8 -->
+  <h2>8. Contact and Updates</h2>
+  <table class="meta-table">
+    <tr><td>Maintainer</td><td>Olha Buchel</td></tr>
+    <tr><td>Repository</td><td><a href="https://github.com/dataforlibs/ukrainian-collections-app" target="_blank">github.com/dataforlibs/ukrainian-collections-app</a></td></tr>
+    <tr><td>Issues</td><td><a href="https://github.com/dataforlibs/ukrainian-collections-app/issues" target="_blank">github.com/dataforlibs/ukrainian-collections-app/issues</a></td></tr>
+    <tr><td>Last updated</td><td>March 2025</td></tr>
+  </table>
+
+  <div class="methods-footer">Слава Україні &nbsp;•&nbsp; Glory to Ukraine</div>
+
+</article>
+</body>
+</html>
