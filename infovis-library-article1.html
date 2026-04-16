@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualization of Library Collections — Olha Buchel · Dataforlibs</title>
+<meta name="description" content="An interactive exploration of how information visualization has transformed the way we understand, navigate, and analyze library and archival collections.">
+<meta property="og:title" content="Visualization of Library Collections">
+<meta property="og:description" content="An interactive long-form article by Olha Buchel exploring the history and practice of library collection visualization.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a18;
+  --ink2:#3a3a36;
+  --muted:#7a7a72;
+  --rule:#d8d4c8;
+  --bg:#faf8f3;
+  --paper:#ffffff;
+  --accent:#8b2635;
+  --accent2:#2d5a8e;
+  --accent3:#2e7d5a;
+  --gold:#b5832a;
+  --max:720px;
+  --wide:1100px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;font-size:18px;line-height:1.75;font-weight:300;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(250,248,243,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);padding:0.6rem 2rem;display:flex;align-items:center;justify-content:space-between;}
+.nav-brand{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:0.08em;}
+.nav-brand span{color:var(--accent);}
+.nav-links{display:flex;gap:1.5rem;}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;}
+.nav-links a:hover{color:var(--ink);}
+
+/* HERO */
+.hero{max-width:var(--max);margin:0 auto;padding:5rem 2rem 3rem;}
+.hero-kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem;}
+.hero-kicker::after{content:'';flex:1;height:1px;background:var(--accent);opacity:0.3;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.15;font-weight:700;color:var(--ink);margin-bottom:1.5rem;}
+.hero-sub{font-size:1.1rem;color:var(--ink2);max-width:580px;margin-bottom:2rem;font-weight:300;font-style:italic;}
+.hero-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.06em;display:flex;gap:2rem;flex-wrap:wrap;}
+.hero-meta span{display:flex;align-items:center;gap:0.4rem;}
+.hero-divider{max-width:var(--max);margin:0 auto 3rem;padding:0 2rem;}
+.hero-divider hr{border:none;border-top:2px solid var(--ink);opacity:0.12;}
+
+/* ARTICLE BODY */
+.article{max-width:var(--max);margin:0 auto;padding:0 2rem;}
+.article p{margin-bottom:1.6rem;color:var(--ink2);}
+.article p:first-child::first-letter{font-family:'Playfair Display',serif;font-size:3.8em;line-height:0.8;float:left;margin:0.05em 0.1em 0 0;color:var(--accent);font-weight:700;}
+.article h2{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--ink);margin:3rem 0 1rem;padding-top:1rem;border-top:1px solid var(--rule);}
+.article h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;font-style:italic;color:var(--ink2);margin:2rem 0 0.75rem;}
+.article a{color:var(--accent2);text-decoration:underline;text-underline-offset:3px;}
+.article a:hover{color:var(--accent);}
+
+/* PULLQUOTE */
+.pullquote{margin:2.5rem -1.5rem;padding:1.5rem 2rem 1.5rem 3rem;border-left:4px solid var(--accent);background:rgba(139,38,53,0.04);}
+.pullquote p{font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;color:var(--ink);margin:0 0 0.5rem;line-height:1.5;}
+.pullquote cite{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.06em;}
+
+/* VIZ SECTIONS */
+.viz-section{max-width:var(--wide);margin:3rem auto;padding:0 1rem;}
+.viz-label{max-width:var(--max);margin:0 auto 0.75rem;padding:0 1rem;display:flex;align-items:center;gap:0.75rem;}
+.viz-label-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--paper);background:var(--accent);padding:3px 8px;letter-spacing:0.08em;}
+.viz-label-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+.viz-box{background:var(--paper);border:1px solid var(--rule);border-radius:4px;overflow:hidden;padding:1.5rem;}
+.viz-caption{max-width:var(--max);margin:0.75rem auto 0;padding:0 1rem;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.04em;line-height:1.6;}
+
+/* TIMELINE */
+#timeline-section .viz-box{
+  padding:1.25rem;
+  border-radius:22px;
+  background:
+    radial-gradient(circle at top left, rgba(181,131,42,0.08), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(45,90,142,0.07), transparent 34%),
+    rgba(255,255,255,0.88);
+  box-shadow:0 18px 50px rgba(56,39,16,0.08);
+}
+#timeline-section .tl-intro{
+  max-width:680px;
+  margin:0 0 1rem;
+  color:var(--ink2);
+  font-size:0.98rem;
+}
+#timeline-section .tl-frame{
+  position:relative;
+  padding:20px;
+  border:1px solid var(--rule);
+  border-radius:26px;
+  background:rgba(255,255,255,0.54);
+  backdrop-filter:blur(8px);
+}
+#timeline-section .tl-axis{
+  position:absolute;
+  height:2px;
+  background:linear-gradient(90deg, transparent, #d8d0c4 4%, #d8d0c4 96%, transparent);
+  transform:translateY(-50%);
+}
+#timeline-section .tl-tick{
+  position:absolute;
+  width:1px;
+  height:14px;
+  background:#d8d0c4;
+  transform:translateX(-50%);
+}
+#timeline-section .tl-year{
+  position:absolute;
+  transform:translateX(-50%);
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:0.04em;
+}
+#timeline-section .tl-link{
+  position:absolute;
+  width:1px;
+  background:linear-gradient(180deg, rgba(120,101,76,0.2), rgba(120,101,76,0.06));
+  transform:translateX(-50%);
+}
+#timeline-section .tl-dot{
+  position:absolute;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  cursor:pointer;
+  transition:transform .18s ease, box-shadow .18s ease;
+  border:2px solid rgba(255,255,255,0.95);
+  box-shadow:0 0 0 0 rgba(0,0,0,0.08);
+}
+#timeline-section .tl-dot:hover,
+#timeline-section .tl-dot:focus-visible,
+#timeline-section .tl-dot.is-active{
+  transform:translate(-50%,-50%) scale(1.35);
+  box-shadow:0 0 0 8px rgba(0,0,0,0.06);
+  outline:none;
+}
+#timeline-section .tl-label{
+  position:absolute;
+  transform:translateX(-50%);
+  background:rgba(255,253,249,0.94);
+  border:1px solid rgba(120,101,76,0.18);
+  border-radius:14px;
+  padding:10px 12px;
+  min-width:132px;
+  max-width:180px;
+  box-shadow:0 10px 28px rgba(0,0,0,0.07);
+  cursor:pointer;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  text-align:left;
+}
+#timeline-section .tl-label:hover,
+#timeline-section .tl-label:focus-visible,
+#timeline-section .tl-label.is-active{
+  transform:translateX(-50%) translateY(-3px);
+  box-shadow:0 16px 34px rgba(0,0,0,.1);
+  border-color:rgba(120,101,76,0.32);
+  outline:none;
+}
+#timeline-section .tl-label-title{
+  font-size:13px;
+  line-height:1.25;
+  font-weight:700;
+  margin-bottom:4px;
+  font-family:'JetBrains Mono',monospace;
+}
+#timeline-section .tl-label-year{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  color:#7e766c;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+#timeline-section .tl-tooltip{
+  position:fixed;
+  z-index:200;
+  pointer-events:none;
+  background:#fff;
+  border:1px solid #ddd5ca;
+  border-radius:12px;
+  padding:8px 10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  line-height:1.4;
+  box-shadow:0 14px 30px rgba(0,0,0,.1);
+  max-width:240px;
+  opacity:0;
+  transition:opacity .14s ease;
+}
+#timeline-section .tl-tooltip.visible{opacity:1;}
+#timeline-section .tl-detail{
+  margin-top:20px;
+  padding:18px;
+  border-radius:18px;
+  background:rgba(255,253,249,0.92);
+  border:1px solid rgba(120,101,76,0.18);
+  box-shadow:0 18px 50px rgba(56,39,16,0.08);
+  display:none;
+}
+#timeline-section .tl-detail.show{display:block;}
+#timeline-section .td-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.35rem;
+  font-weight:700;
+  margin-bottom:6px;
+  color:var(--ink);
+}
+#timeline-section .td-meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  color:#7a7268;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+#timeline-section .td-body{
+  font-size:0.96rem;
+  color:#403a33;
+  line-height:1.8;
+  max-width:72ch;
+}
+#timeline-section .legend{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+#timeline-section .legend-item{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border:1px solid var(--rule);
+  border-radius:999px;
+  background:rgba(255,255,255,0.55);
+  color:var(--muted);
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+}
+#timeline-section .legend-swatch{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+}
+.tl-detail{margin-top:1rem;padding:1rem 1.25rem;background:var(--bg);border-left:3px solid var(--accent);display:none;font-size:0.9rem;}
+.tl-detail.show{display:block;}
+.tl-det-meta{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.08em;}
+.tl-det-title{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:6px;}
+.tl-det-body{color:var(--ink2);line-height:1.6;font-size:0.9rem;}
+.tl-det-ref{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-top:6px;font-style:italic;}
+
+/* BIBLIOGRAPHY */
+.bib{max-width:var(--max);margin:4rem auto 0;padding:0 2rem 5rem;}
+.bib h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--ink);margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:2px solid var(--ink);display:flex;align-items:center;justify-content:space-between;}
+.bib-section-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.5rem;}
+.bib-entry{font-size:0.85rem;color:var(--ink2);line-height:1.65;padding-left:1.5rem;text-indent:-1.5rem;margin-bottom:0.6rem;}
+.bib-entry strong{font-weight:400;font-style:italic;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--rule);padding:2rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.06em;}
+footer a{color:var(--muted);}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{height:4px;width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--rule);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="https://dataforlibs.github.io"><span>data</span>forlibs</a>
+  <div class="nav-links">
+    <a href="#history">History</a>
+    <a href="#tree">Lineage</a>
+    <a href="#sunburst">Map</a>
+    <a href="#bibliography">References</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-kicker">Data Science for Libraries</div>
+  <h1>Visualization of<br>Library Collections</h1>
+  <p class="hero-sub">How information visualization transformed the way we understand, navigate, and analyze library and archival holdings — from treemaps to geodigital libraries to cultural heritage at scale.</p>
+  <div class="hero-meta">
+    <span>Olha Buchel</span>
+    <span>April 2026</span>
+    <span>~12 min read</span>
+    <span>3 interactive visualizations</span>
+  </div>
+</header>
+<div class="hero-divider"><hr></div>
+
+<article class="article">
+
+<p>Libraries have always produced numbers about themselves — counts of volumes, subject breakdowns, circulation statistics. For most of their history these figures lived in annual reports and spreadsheets, inert and largely unread. What changed was not the data, but the capacity to see it. When researchers began applying the emerging tools of information visualization to library holdings in the 1990s, a new kind of understanding became possible: not just knowing that a collection contained 334 records on Ukrainian local history, but seeing how the language of those records shifted after 1991, how publication geography correlated with political geography, how book format varied with city population. The numbers became landscapes.</p>
+
+<p>This article traces that transformation — from the foundational IEEE infovis research of the 1980s and 1990s through the visual analytics movement, the cultural heritage visualization community, and into the present, where institutions like Europeana and the Digital Public Library of America treat their collections as datasets inviting computational exploration. Three interactive visualizations accompany the text: a timeline of key milestones, a collapsible intellectual lineage tree, and a thematic sunburst map of the field.</p>
+
+<h2 id="history">From vision to knowledge</h2>
+
+<p>The intellectual genealogy of collection visualization runs through a small community of computer scientists who gathered under the IEEE banner in the late 1980s. At Xerox PARC, Stuart Card, Jock Mackinlay, and George Robertson were building systems that treated the computer screen not as a document surface but as a cognitive prosthetic — a way of extending what the human mind could hold, compare, and reason about. Their 1989 Information Visualizer introduced three-dimensional animated navigation of large information spaces. Mackinlay's earlier 1986 paper had already established that the choice of visual encoding was not arbitrary: different mappings of data attributes to visual properties (position, color, size, shape) had different expressive power depending on data type. This seemingly technical point had profound implications — it meant visualization design could be reasoned about, even automated.</p>
+
+<div class="pullquote">
+  <p>"The power of the unaided mind is highly overrated. Without external aids, memory, thought, and reasoning are all constrained. The real powers come from devising external aids."</p>
+  <cite>— Card, Mackinlay & Shneiderman, Readings in Information Visualization (1999)</cite>
+</div>
+
+<p>Ben Shneiderman at the University of Maryland contributed two techniques that remain in daily use: treemaps (1992), which fill a rectangle with nested tiles proportional to a numeric attribute, originally for visualizing disk usage but immediately applicable to library subject hierarchies; and dynamic queries (1992), interactive sliders that filter a dataset in real time and update a visual display. His laboratory, HCIL, also produced LifeLines (1996) with Catherine Plaisant — multi-track parallel timelines for personal histories, applied first to juvenile justice records and medical charts, but conceptually transferable to any temporal collection of records. The 1999 volume <em>Readings in Information Visualization: Using Vision to Think</em>, edited by Card, Mackinlay, and Shneiderman, consolidated this work into a field.</p>
+
+<p>The key concept the volume introduced was <em>knowledge crystallization</em> — the process by which a user, interacting with a visualization, extracts insight that would not be available from the raw data alone. The metaphor is apt: something dispersed in solution suddenly takes structural form. For library collections, crystallization meant the ability to see a collection's character — its temporal gaps, its geographic concentrations, its linguistic history — without reading every record.</p>
+
+<h2>The geodigital library</h2>
+
+<p>While the infovis community was developing general-purpose visual tools, library and information scientists were asking a more specific question: what happens when you overlay a document collection onto a map? Ray Larson's 1996 work on spatial browsing gave users the ability to retrieve georeferenced documents by drawing a region on a digital map — a simple idea that opened a significant design space. The collections most amenable to this treatment were those about places: local history, cartographic archives, ethnographic records, travel literature.</p>
+
+<p>Olha Buchel's doctoral research at the University of Western Ontario (2012), conducted with Kamran Sedig, developed this direction systematically. Their prototype system VICOLEX (VIsual COLlection EXplorer) applied to 334 records from the Library of Congress Ukrainian local history holdings, integrating Google Maps with coordinated secondary representations: Kohonen self-organizing maps, scatter plots, pie charts, hierarchical timelines, and embedded maps of publication places. The system was used to analyze a collection spanning 1917 to 2007, and the coordinated visualizations revealed findings that text browsing could not: the collection was dominated by post-1991 publications (reflecting Ukrainian independence), Polish-language books about Lviv increased sharply after 1981, and Russian-language materials clustered geographically in ethnically Russian-speaking regions. Each of these patterns crystallized from interaction with the visualization, not from reading records.</p>
+
+<p>The 2014 paper by Buchel and Sedig, published in <em>Information Research</em>, analyzed the role of interaction in this sensemaking process. Their central finding was that individual interactions — filtering, selecting, annotating, gathering — appeared insignificant in isolation but combined to substantially reduce cognitive effort. This echoed a broader principle from Sedig and Parsons's later framework (2016): that visualization design must attend not only to visual encoding but to the full space of human-information interaction, including the temporal and task-based dimensions of how users move through an information space.</p>
+
+<h2>Visual analytics and the scale problem</h2>
+
+<p>The visual analytics movement that emerged in the mid-2000s addressed a challenge the original infovis community had encountered but not fully solved: what happens when collections become too large for visual inspection even with good tools? The National Visualization and Analytics Center (NVAC), established at Pacific Northwest National Laboratory in 2004 partly in response to the intelligence community's post-9/11 information overload, articulated a new research agenda. Thomas and Cook's 2005 volume <em>Illuminating the Path</em> defined visual analytics as "the science of analytical reasoning facilitated by interactive visual interfaces" — a definition that elevated human reasoning, not just visualization, to the center of the enterprise.</p>
+
+<p>The key distinction was the tight coupling of automated analysis with interactive display. Rather than presenting pre-computed visualizations to a human viewer, visual analytics systems let the human and the algorithm collaborate: the algorithm handles what is computationally tractable (clustering, dimension reduction, topic modeling), the human handles what requires judgment (interpretation, relevance assessment, anomaly flagging). For libraries, this meant that a collection too large to browse could still be navigated — its thematic structure extracted by a topic model, its temporal evolution animated, its geographic distribution rendered on a map — and that the visualization would update as the human interacted.</p>
+
+<h2>Text and document visualization</h2>
+
+<p>Christopher Collins, Canada Research Chair in Linguistic Information Visualization at Ontario Tech University from 2013 to 2023, developed several techniques specifically suited to document collections. DocuBurst (2009), created with Sheelagh Carpendale and Gerald Penn, arranged a document's vocabulary in a radial layout following WordNet's IS-A hierarchy — so that words appearing frequently in the document inflated their sectors, giving a visual summary of semantic content rather than mere word frequency. The structure of the display was not arbitrary but followed the deep organization of the English lexicon.</p>
+
+<p>Parallel Tag Clouds (2009), developed with Fernanda Viégas and Martin Wattenberg at IBM Research, combined the visual vocabulary of parallel coordinates with tag clouds to compare facets of very large text corpora. Applied to 600,000 US Circuit Court decisions over 50 years, the system revealed regional and linguistic differences between courts that were invisible in any single-facet view. The paper received the VAST Test of Time Award in 2019. A third contribution, VisGets (2008), created with Marian Dörk, Carpendale, and Williamson, provided coordinated interactive query filters for web-based information — an early example of what would become the standard architecture for faceted collection browsing.</p>
+
+<h2>Generous interfaces and the cultural heritage turn</h2>
+
+<p>The concept most influential in shifting how cultural institutions think about collection interfaces came not from the IEEE but from Mitchell Whitelaw's 2015 essay "Generous Interfaces for Digital Cultural Collections." Whitelaw argued that the standard library interface — a search box that returns a ranked list — was structurally inhospitable to the exploratory, serendipitous discovery that physical browsing enables. A generous interface, by contrast, presents the full scope and character of a collection immediately, inviting exploration before any query is formed. Users should be able to see what a collection contains before they know what to ask for.</p>
+
+<p>Marian Dörk's related concept of the "information flaneur" (CHI 2011), developed with Carpendale and Williamson, used the metaphor of the urban walker — making meaning through unhurried, curious traversal of a space — to argue for a more exploratory mode of information seeking. Both concepts influenced a generation of cultural heritage interface design, particularly in the GLAM (Galleries, Libraries, Archives, Museums) sector.</p>
+
+<p>The most comprehensive survey of this work is Windhager et al.'s 2019 paper in <em>IEEE Transactions on Visualization and Computer Graphics</em>, which reviewed more than 100 visualization systems built for cultural heritage collections. Their analysis found that 80% used multiple coordinated views, that temporal visualization was present in 81% of systems, and that the field was moving toward richer integration of spatial, temporal, and thematic encodings. Katy Börner's work at Indiana University — the "Visualizing Knowledge Domains" survey (2003) with Chaomei Chen and Kevin Boyack, the Places & Spaces traveling exhibit (2004–present), and her Atlas trilogy (MIT Press, 2010 and 2015) — provided the bibliometric and science-mapping foundations that continue to inform collection analysis.</p>
+
+<h2>The three interactive visualizations below</h2>
+
+<p>The timeline shows key milestones from 1986 to 2019 across five categories: information visualization, library collections, Katy Börner's work, visual analytics, and digital heritage. Hover for a quick reading or click any point to open the full detail panel. The collapsible tree shows the same intellectual lineage organized hierarchically — click any branch node to expand or collapse it. The sunburst map organizes the field thematically rather than chronologically, grouping concepts by domain. All three are different lenses on the same territory.</p>
+
+</article>
+
+<!-- VIZ 1: TIMELINE -->
+<section class="viz-section" id="timeline-section">
+  <div class="viz-label">
+    <span class="viz-label-num">FIG 1</span>
+    <span class="viz-label-title">Timeline of key milestones, 1986–2019</span>
+  </div>
+  <div class="viz-box">
+    <p class="tl-intro">An interactive timeline connecting early infovis milestones, library collection interfaces, Katy Börner's science-mapping work, visual analytics, and digital heritage projects. Hover for a quick read or select an item to open the detail panel.</p>
+    <div class="tl-frame">
+      <div id="timeline" aria-label="Interactive timeline"></div>
+
+      <div class="legend" aria-label="Categories">
+        <span class="legend-item"><span class="legend-swatch" style="background:#2d5a8e"></span>Information Visualization</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#2e7d5a"></span>Libraries</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#8b2635"></span>Katy Börner</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#7a4a1e"></span>Visual Analytics</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#5a3d7a"></span>Digital Heritage</span>
+      </div>
+    </div>
+    <div class="tl-tooltip" id="tooltip" role="status" aria-hidden="true"></div>
+    <div class="tl-detail" id="detail" aria-live="polite">
+      <div class="td-title" id="dTitle"></div>
+      <div class="td-meta" id="dMeta"></div>
+      <div class="td-body" id="dBody"></div>
+    </div>
+  </div>
+  <p class="viz-caption">Five categories: information visualization (blue) · libraries (green) · Katy Börner (crimson) · visual analytics (orange) · digital heritage (purple). Hover for context or click any label or dot to read the full entry.</p>
+</section>
+
+<article class="article" id="history">
+  <h2 id="tree">Intellectual lineage</h2>
+  <p>The collapsible tree below maps the same field as a hierarchy. Each branch represents a researcher or research tradition; each leaf is a specific contribution. Click any branch node to expand it and reveal its leaves. Click a leaf for a description. The tree makes visible something the timeline does not: that the field of visualization of library collections is not a single lineage but a confluence of at least six parallel streams that converge on the same object — the collection — from different disciplinary directions.</p>
+</article>
+
+<!-- VIZ 2: TREE -->
+<section class="viz-section" id="tree">
+  <div class="viz-label">
+    <span class="viz-label-num">FIG 2</span>
+    <span class="viz-label-title">Intellectual lineage — collapsible tree</span>
+  </div>
+  <div class="viz-box">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7a7a72;margin-bottom:0.75rem;">Click a branch to expand · click again to collapse · click a leaf for details</p>
+    <div id="treeWrap" style="overflow:auto;"></div>
+    <div class="tl-detail" id="treeDetail">
+      <div class="tl-det-meta" id="trMeta"></div>
+      <div class="tl-det-title" id="trTitle"></div>
+      <div class="tl-det-body" id="trBody"></div>
+      <div class="tl-det-ref" id="trRef"></div>
+    </div>
+  </div>
+  <p class="viz-caption">Seven branches: IEEE infovis · Library collections · Katy Börner · Christopher Collins · Kamran Sedig · Visual analytics · Digital humanities.</p>
+</section>
+
+<article class="article">
+  <h2>A thematic map of the field</h2>
+  <p>The sunburst below is modeled on Christopher Collins's DocuBurst — a radial, space-filling display in which the center represents the field as a whole, the first ring its major themes, and the outer ring individual concepts within each theme. The size of each segment reflects the relative weight of that concept in the literature. Hover over any segment to read a description; click to zoom into that theme.</p>
+</article>
+
+<!-- VIZ 3: SUNBURST -->
+<section class="viz-section" id="sunburst">
+  <div class="viz-label">
+    <span class="viz-label-num">FIG 3</span>
+    <span class="viz-label-title">Thematic map of the field — DocuBurst-style sunburst</span>
+  </div>
+  <div class="viz-box" style="display:flex;flex-direction:column;align-items:center;">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7a7a72;margin-bottom:0.75rem;align-self:flex-start;">Click any segment to zoom in · click the centre to zoom out · hover for details</p>
+    <div id="sbBread" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#7a7a72;margin-bottom:0.5rem;min-height:16px;align-self:flex-start;"></div>
+    <div id="sbChart" style="width:100%;max-width:600px;"></div>
+    <div id="sbTooltip" style="display:none;position:fixed;background:#fff;border:1px solid #d8d4c8;border-radius:4px;padding:10px 14px;font-size:12px;pointer-events:none;max-width:220px;line-height:1.5;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,0.1);"></div>
+  </div>
+  <p class="viz-caption">Six themes: Information Visualization · Text & Document Visualization · Map-based & Geospatial · Visual Analytics & Sensemaking · Knowledge Domain Mapping · Digital Libraries & Collections.</p>
+</section>
+
+<!-- BIBLIOGRAPHY -->
+<section class="bib" id="bibliography">
+  <h2>Selected Bibliography <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;color:#7a7a72;">APA format</span></h2>
+
+  <div class="bib-section-title">Foundational information visualization</div>
+  <p class="bib-entry">Mackinlay, J. D. (1986). Automating the design of graphical presentations of relational information. <strong>ACM Transactions on Graphics, 5</strong>(2), 110–141.</p>
+  <p class="bib-entry">Shneiderman, B. (1992). Tree visualization with tree-maps. <strong>ACM Transactions on Graphics, 11</strong>(1), 92–99.</p>
+  <p class="bib-entry">Plaisant, C., Milash, B., Rose, A., Widoff, S., & Shneiderman, B. (1996). LifeLines: Visualizing personal histories. <strong>Proceedings of ACM CHI</strong>, 221–227.</p>
+  <p class="bib-entry">Card, S. K., Mackinlay, J. D., & Shneiderman, B. (Eds.). (1999). <strong>Readings in Information Visualization: Using Vision to Think.</strong> Morgan Kaufmann.</p>
+
+  <div class="bib-section-title">Map-based visualization of library collections</div>
+  <p class="bib-entry">Larson, R. (1996). Geographic information retrieval and spatial browsing. In L. C. Smith & M. Gluck (Eds.), <strong>Geographic Information Systems and Libraries</strong> (pp. 81–124). University of Illinois.</p>
+  <p class="bib-entry">Buchel, O. (2012). <strong>Making Sense of Document Collections with Map-Based Visualizations</strong> (Doctoral dissertation). University of Western Ontario. https://ir.lib.uwo.ca/etd/523</p>
+  <p class="bib-entry">Buchel, O., & Sedig, K. (2014). Making sense of document collections with map-based visualisations: The role of interaction with representations. <strong>Information Research, 19</strong>(3), paper 631.</p>
+  <p class="bib-entry">Hall, M., & Clough, P. (2013). Exploring large digital library collections using a map-based visualisation. <strong>Lecture Notes in Computer Science, 8092</strong>, 216–227. Springer.</p>
+
+  <div class="bib-section-title">Visual analytics</div>
+  <p class="bib-entry">Thomas, J. J., & Cook, K. A. (Eds.). (2005). <strong>Illuminating the Path: The Research and Development Agenda for Visual Analytics.</strong> IEEE Computer Society Press.</p>
+  <p class="bib-entry">Sedig, K., & Parsons, P. (2016). <strong>Design of Visualizations for Human-Information Interaction: A Pattern-Based Framework.</strong> Morgan & Claypool.</p>
+  <p class="bib-entry">Haghighati, A., & Sedig, K. (2025). VICTORIOUS: A visual analytics system for scoping review of document sets. <strong>Multimodal Technologies and Interaction, 9</strong>(5), 37.</p>
+
+  <div class="bib-section-title">Text and document visualization</div>
+  <p class="bib-entry">Dörk, M., Carpendale, S., Collins, C., & Williamson, C. (2008). VisGets: Coordinated visualizations for web-based information exploration and discovery. <strong>IEEE TVCG, 14</strong>(6), 1205–1213.</p>
+  <p class="bib-entry">Collins, C., Carpendale, S., & Penn, G. (2009). DocuBurst: Visualizing document content using language structure. <strong>Computer Graphics Forum, 28</strong>(3), 1039–1046.</p>
+  <p class="bib-entry">Collins, C., Viégas, F. B., & Wattenberg, M. (2009). Parallel tag clouds to explore and analyze faceted text corpora. <strong>Proceedings of IEEE VAST</strong>, 91–98. [VAST Test of Time Award 2019]</p>
+
+  <div class="bib-section-title">Cultural heritage collection visualization</div>
+  <p class="bib-entry">Whitelaw, M. (2015). Generous interfaces for digital cultural collections. <strong>Digital Humanities Quarterly, 9</strong>(1).</p>
+  <p class="bib-entry">Dörk, M., Carpendale, S., & Williamson, C. (2011). The information flaneur: A fresh look at information seeking. <strong>Proceedings of ACM CHI</strong>, 1215–1224.</p>
+  <p class="bib-entry">Windhager, F., Federico, P., Schreder, G., Glinka, K., Dörk, M., Miksch, S., & Mayr, E. (2019). Visualization of cultural heritage collection data: State of the art and future challenges. <strong>IEEE TVCG, 25</strong>(6), 2311–2330.</p>
+
+  <div class="bib-section-title">Knowledge domain mapping</div>
+  <p class="bib-entry">Börner, K., Chen, C., & Boyack, K. W. (2003). Visualizing knowledge domains. <strong>Annual Review of Information Science and Technology, 37</strong>, 179–255.</p>
+  <p class="bib-entry">Börner, K. (2010). <strong>Atlas of Science: Visualizing What We Know.</strong> MIT Press.</p>
+  <p class="bib-entry">Börner, K. (2015). <strong>Atlas of Knowledge: Anyone Can Map.</strong> MIT Press.</p>
+</section>
+
+<footer>
+  <p>Olha Buchel · <a href="https://dataforlibs.github.io">dataforlibs.github.io</a> · April 2026</p>
+  <p style="margin-top:0.5rem;">Interactive visualizations built with D3.js · Published under CC BY 4.0</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+/* ===================== SHARED DATA ===================== */
+const COLORS={
+  infovis:'#2d5a8e',borner:'#8b2635',
+  va:'#7a4a1e',lib:'#2e7d5a',dh:'#5a3d7a',
+  collins:'#6b4a0e',sedig:'#3a5a6a',root:'#5a5a52'
+};
+
+const events=[
+  {year:1986,cat:'infovis',title:'Mackinlay APT',short:'Automated visualization design',body:'Jock Mackinlay published "Automating the Design of Graphical Presentations of Relational Information" — establishing that visual encoding choices could be reasoned about systematically.',ref:'Mackinlay, J. (1986). ACM Transactions on Graphics, 5(2).'},
+  {year:1989,cat:'infovis',title:'Information Visualizer',short:'Robertson, Card & Mackinlay',body:'Robertson, Card, and Mackinlay at Xerox PARC developed the Information Visualizer — using 3D animation and focus+context displays to navigate large information spaces.',ref:'Robertson, Card & Mackinlay (1989). CHI.'},
+  {year:1992,cat:'infovis',title:'Treemaps & dynamic queries',short:'Shneiderman, Maryland HCIL',body:'Shneiderman introduced treemaps and dynamic queries — two foundational techniques directly applicable to library catalog browsing and collection analysis.',ref:'Shneiderman, B. (1992). IEEE Symposium on Visual Languages.'},
+  {year:1993,cat:'lib',title:'VIBE system',short:'First document collection visualization',body:'Olsen et al. developed VIBE (Visual Information Browsing Environment) — one of the earliest systems for visualizing document collections using spatial placement.',ref:'Olsen, Korfhage et al. (1993). Information Processing & Management, 29(1).'},
+  {year:1996,cat:'infovis',title:'LifeLines',short:'Plaisant & Shneiderman',body:'Catherine Plaisant and Shneiderman introduced LifeLines — multi-faceted parallel timelines for personal histories (medical records, court records). Highly influential in temporal visualization.',ref:'Plaisant, Milash, Rose, Widoff & Shneiderman (1996). ACM CHI.'},
+  {year:1996,cat:'lib',title:'Spatial browsing',short:'Larson — map interfaces for libraries',body:'Ray Larson introduced spatial browsing for library collections, allowing users to retrieve georeferenced documents by selecting geographic areas on a digital map.',ref:'Larson, R. (1996). JASIS.'},
+  {year:1999,cat:'infovis',title:'"Using Vision to Think"',short:'Card, Mackinlay & Shneiderman',body:'The landmark volume consolidated 15 years of IEEE research, defining the information visualization reference model and framing "knowledge crystallization" as the field\'s core goal.',ref:'Card, Mackinlay & Shneiderman (1999). Morgan Kaufmann.'},
+  {year:2002,cat:'lib',title:'Visual interfaces to digital libraries',short:'Börner & Chen — JCDL workshop',body:'Katy Börner and Chaomei Chen organized the landmark JCDL 2002 workshop bridging IEEE infovis and library communities. The resulting Springer volume defined the research agenda.',ref:'Börner & Chen, eds. (2002). Springer LNCS.'},
+  {year:2003,cat:'borner',title:'Visualizing knowledge domains',short:'Börner, Chen & Boyack — ARIST',body:'A comprehensive 1,700-cited ARIST survey of techniques for mapping scientific disciplines using citation analysis, co-authorship networks and co-word analysis.',ref:'Börner, Chen & Boyack (2003). ARIST, 37.'},
+  {year:2004,cat:'borner',title:'Places & Spaces exhibit',short:'Börner — mapping science for the public',body:'Börner launched "Places & Spaces: Mapping Science" — a traveling exhibit that has toured 500+ venues in 30 countries.',ref:'Börner, K. (2004–present). scimaps.org'},
+  {year:2004,cat:'va',title:'NVAC established',short:'National Visualization & Analytics Center',body:'The NVAC was established at PNNL, positioning visual analytics as a new research domain addressing post-9/11 information overload.',ref:'Thomas & Cook (2005). IEEE.'},
+  {year:2005,cat:'va',title:'"Illuminating the Path"',short:'Thomas & Cook define visual analytics',body:'Thomas and Cook defined visual analytics as "the science of analytical reasoning facilitated by interactive visual interfaces."',ref:'Thomas & Cook (2005). IEEE Computer Society Press.'},
+  {year:2006,cat:'va',title:'IEEE VAST launched',short:'Dedicated visual analytics conference',body:'The IEEE Conference on Visual Analytics Science and Technology was launched, creating a dedicated venue for visual analytics research.',ref:'IEEE VAST (2006).'},
+  {year:2007,cat:'dh',title:'Europeana founded',short:'European digital heritage aggregator',body:'Europeana was established, providing APIs and bulk data that catalysed visualization work on cultural heritage collections.',ref:'European Commission (2007).'},
+  {year:2009,cat:'lib',title:'VICOLEX prototype',short:'Buchel & Sedig — Library of Congress',body:'Buchel and Sedig developed VICOLEX for 334 Library of Congress Ukrainian local history records. Coordinated maps, Kohonen maps, scatter plots and timelines revealed collection patterns invisible in text-based catalogs.',ref:'Buchel, O. (2012). Doctoral dissertation, University of Western Ontario.'},
+  {year:2010,cat:'borner',title:'"Atlas of Science"',short:'Börner — MIT Press',body:'Atlas of Science (MIT Press) won the 2011 ASIS&T Best Information Science Book award.',ref:'Börner, K. (2010). MIT Press.'},
+  {year:2010,cat:'dh',title:'DPLA founded',short:'Digital Public Library of America',body:'The DPLA was established with open APIs enabling visualization of American cultural heritage collections at scale.',ref:'DPLA (2010).'},
+  {year:2015,cat:'borner',title:'"Atlas of Knowledge"',short:'Visualization framework — MIT Press',body:'Atlas of Knowledge (MIT Press) — a theoretical visualization framework applicable to any knowledge domain.',ref:'Börner, K. (2015). MIT Press.'},
+];
+
+/* ===================== TIMELINE ===================== */
+(function(){
+  const CATEGORY_NAMES={
+    infovis:'Information Visualization',
+    lib:'Libraries',
+    borner:'Katy Börner',
+    va:'Visual Analytics',
+    dh:'Digital Heritage'
+  };
+
+  const container=document.getElementById('timeline');
+  const tooltip=document.getElementById('tooltip');
+  const detail=document.getElementById('detail');
+  const dTitle=document.getElementById('dTitle');
+  const dMeta=document.getElementById('dMeta');
+  const dBody=document.getElementById('dBody');
+
+  const START=1985;
+  const END=2020;
+  const TICK_YEARS=[1985,1990,1995,2000,2005,2010,2015,2020];
+  let activeElements=[];
+
+  function clamp(value,min,max){
+    return Math.min(Math.max(value,min),max);
+  }
+
+  function getWidth(){
+    return Math.max(container.clientWidth,320);
+  }
+
+  function x(year,width){
+    return ((year-START)/(END-START))*width;
+  }
+
+  function getPositionedEvents(items,width){
+    const spacing=window.innerWidth<700 ? 16 : 20;
+    const yearCounts=new Map();
+
+    items.forEach((item)=>{
+      yearCounts.set(item.year,(yearCounts.get(item.year) || 0)+1);
+    });
+
+    const yearSeen=new Map();
+
+    return items.map((item)=>{
+      const total=yearCounts.get(item.year) || 1;
+      const index=yearSeen.get(item.year) || 0;
+      yearSeen.set(item.year,index+1);
+
+      const centeredOffset=(index-(total-1)/2)*spacing;
+      const baseX=x(item.year,width);
+      const px=clamp(baseX+centeredOffset,20,width-20);
+
+      return {
+        ...item,
+        px
+      };
+    });
+  }
+
+  function clearTimeline(){
+    container.innerHTML='';
+    activeElements=[];
+  }
+
+  function showTooltip(eventData,ev){
+    tooltip.classList.add('visible');
+    tooltip.setAttribute('aria-hidden','false');
+    tooltip.innerHTML='<strong>'+eventData.title+'</strong><br>'+eventData.year+' · '+CATEGORY_NAMES[eventData.cat];
+    positionTooltip(ev);
+  }
+
+  function hideTooltip(){
+    tooltip.classList.remove('visible');
+    tooltip.setAttribute('aria-hidden','true');
+  }
+
+  function positionTooltip(ev){
+    if(!tooltip.classList.contains('visible')) return;
+
+    const offset=14;
+    const rect=tooltip.getBoundingClientRect();
+    const left=clamp(ev.clientX+offset,8,window.innerWidth-rect.width-8);
+    const top=clamp(ev.clientY-rect.height-offset,8,window.innerHeight-rect.height-8);
+
+    tooltip.style.left=left+'px';
+    tooltip.style.top=top+'px';
+  }
+
+  function setActive(elements){
+    activeElements.forEach((el)=>el.classList.remove('is-active'));
+    activeElements=elements;
+    activeElements.forEach((el)=>el.classList.add('is-active'));
+  }
+
+  function showDetail(eventData,elements){
+    setActive(elements);
+    detail.classList.add('show');
+    dTitle.textContent=eventData.title;
+    dMeta.textContent=eventData.year+' · '+CATEGORY_NAMES[eventData.cat];
+    dBody.textContent=eventData.body;
+  }
+
+  function makeInteractive(el,eventData,linkedElements){
+    el.addEventListener('mouseenter',(ev)=>showTooltip(eventData,ev));
+    el.addEventListener('mousemove',positionTooltip);
+    el.addEventListener('mouseleave',hideTooltip);
+    el.addEventListener('click',()=>showDetail(eventData,linkedElements));
+    el.addEventListener('focus',(ev)=>showTooltip(eventData,ev));
+    el.addEventListener('blur',hideTooltip);
+    el.addEventListener('keydown',(ev)=>{
+      if(ev.key==='Enter' || ev.key===' '){
+        ev.preventDefault();
+        showDetail(eventData,linkedElements);
+      }
+    });
+  }
+
+  function renderTimeline(){
+    clearTimeline();
+
+    const width=getWidth();
+    const laneCount=window.innerWidth<700 ? 7 : 6;
+    const laneHeight=window.innerWidth<700 ? 56 : 52;
+    const topBase=window.innerWidth<700 ? 28 : 24;
+    const height=window.innerWidth<700 ? 620 : 520;
+    const axisY=window.innerWidth<700 ? 410 : 380;
+
+    container.style.height=height+'px';
+
+    const axis=document.createElement('div');
+    axis.className='tl-axis';
+    axis.style.top=axisY+'px';
+    axis.style.left='0';
+    axis.style.width=width+'px';
+    container.appendChild(axis);
+
+    TICK_YEARS.forEach((year)=>{
+      const yearX=x(year,width);
+      const tick=document.createElement('div');
+      tick.className='tl-tick';
+      tick.style.left=yearX+'px';
+      tick.style.top=axisY-6+'px';
+      container.appendChild(tick);
+
+      const label=document.createElement('div');
+      label.className='tl-year';
+      label.style.left=yearX+'px';
+      label.style.top=axisY+18+'px';
+      label.textContent=year;
+      container.appendChild(label);
+    });
+
+    const laneEnds=new Array(laneCount).fill(-Infinity);
+    const labelBuffer=window.innerWidth<700 ? 100 : 132;
+    const positionedEvents=getPositionedEvents(events,width);
+
+    positionedEvents.forEach((eventData)=>{
+      const px=eventData.px;
+      const color=COLORS[eventData.cat];
+
+      let lane=0;
+      for(let i=0;i<laneEnds.length;i+=1){
+        if(px>laneEnds[i]){
+          lane=i;
+          break;
+        }
+        lane=i;
+      }
+      laneEnds[lane]=px+labelBuffer;
+
+      const labelY=topBase+lane*laneHeight;
+
+      const link=document.createElement('div');
+      link.className='tl-link';
+      link.style.left=px+'px';
+      link.style.top=labelY+44+'px';
+      link.style.height=Math.max(axisY-labelY-50,20)+'px';
+      container.appendChild(link);
+
+      const dot=document.createElement('button');
+      dot.className='tl-dot';
+      dot.type='button';
+      dot.setAttribute('aria-label',eventData.title+', '+eventData.year);
+      dot.style.left=px+'px';
+      dot.style.top=axisY+'px';
+      dot.style.background=color;
+      container.appendChild(dot);
+
+      const label=document.createElement('button');
+      label.className='tl-label';
+      label.type='button';
+      label.style.left=clamp(px,74,width-74)+'px';
+      label.style.top=labelY+'px';
+      label.innerHTML='<div class="tl-label-title" style="color:'+color+'">'+eventData.title+'</div><div class="tl-label-year">'+eventData.year+'</div>';
+      container.appendChild(label);
+
+      const linkedElements=[dot,label];
+      makeInteractive(dot,eventData,linkedElements);
+      makeInteractive(label,eventData,linkedElements);
+    });
+  }
+
+  renderTimeline();
+  window.addEventListener('resize',renderTimeline);
+  document.addEventListener('mousemove',positionTooltip);
+})();
+
+/* ===================== TREE ===================== */
+(function(){
+  const rawData={id:'root',name:'Visualization of\nLibrary Collections',cat:'root',children:[
+    {id:'infovis',name:'IEEE infovis',cat:'infovis',children:[
+      {id:'apt',name:'Mackinlay APT 1986',year:1986,cat:'infovis',title:'Mackinlay APT',body:'Mackinlay established that visual encoding choices could be reasoned about systematically, laying groundwork for the IEEE infovis community.',ref:'Mackinlay, J. (1986). ACM Transactions on Graphics.'},
+      {id:'tree',name:'Treemaps & dynamic queries 1992',year:1992,cat:'infovis',title:'Treemaps & dynamic queries',body:'Shneiderman introduced treemaps and dynamic queries at Maryland HCIL — directly applicable to library catalog browsing.',ref:'Shneiderman, B. (1992). IEEE Symposium on Visual Languages.'},
+      {id:'ll',name:'LifeLines 1996',year:1996,cat:'infovis',title:'LifeLines',body:'Plaisant and Shneiderman introduced multi-faceted parallel timelines for personal histories — highly influential in temporal visualization.',ref:'Plaisant et al. (1996). ACM CHI.'},
+      {id:'vtt',name:'"Using Vision to Think" 1999',year:1999,cat:'infovis',title:'"Using Vision to Think"',body:'Card, Mackinlay & Shneiderman landmark volume defined the information visualization reference model and knowledge crystallization as the field\'s core goal.',ref:'Card, Mackinlay & Shneiderman (1999). Morgan Kaufmann.'},
+      {id:'vg',name:'VisGets 2008',year:2008,cat:'infovis',title:'VisGets — Dörk, Collins et al.',body:'Coordinated interactive query visualizations for web-based information exploration; Dörk, Carpendale, Collins & Williamson.',ref:'Dörk, Carpendale, Collins & Williamson (2008). IEEE TVCG.'},
+      {id:'db',name:'DocuBurst 2009',year:2009,cat:'infovis',title:'DocuBurst — Christopher Collins',body:'Radial space-filling layout of WordNet IS-A relations overlaid with word frequencies, reflecting semantic content of documents.',ref:'Collins, Carpendale & Penn (2009). Computer Graphics Forum.'},
+      {id:'ptc',name:'Parallel Tag Clouds 2009',year:2009,cat:'infovis',title:'Parallel Tag Clouds — Christopher Collins',body:'Combines parallel coordinates and tag clouds to compare facets of large text corpora. VAST Test of Time Award 2019.',ref:'Collins, Viégas & Wattenberg (2009). IEEE VAST.'},
+    ]},
+    {id:'lib',name:'Library collections',cat:'lib',children:[
+      {id:'vibe',name:'VIBE system 1993',year:1993,cat:'lib',title:'VIBE system',body:'Olsen et al. developed VIBE — one of the earliest systems for visualizing document collections using spatial placement.',ref:'Olsen, Korfhage et al. (1993). Information Processing & Management.'},
+      {id:'geo',name:'Spatial browsing 1996',year:1996,cat:'lib',title:'Spatial browsing in geolibraries',body:'Larson introduced spatial browsing for library collections — retrieving georeferenced documents by selecting geographic areas on a digital map.',ref:'Larson, R. (1996). JASIS.'},
+      {id:'jcdl',name:'Visual interfaces to digital libraries 2002',year:2002,cat:'lib',title:'Visual interfaces to digital libraries',body:'Börner and Chen organized the landmark JCDL 2002 workshop bridging IEEE infovis and library communities.',ref:'Börner & Chen, eds. (2002). Springer LNCS.'},
+      {id:'vic',name:'VICOLEX 2009',year:2009,cat:'lib',title:'VICOLEX prototype',body:'Buchel and Sedig developed VICOLEX for 334 Library of Congress Ukrainian local history records. Coordinated visualizations revealed patterns invisible in text-based catalogs.',ref:'Buchel, O. (2012). Doctoral dissertation, University of Western Ontario.'},
+      {id:'kd',name:'Visualizing knowledge domains 2003',year:2003,cat:'lib',title:'Visualizing knowledge domains — Katy Börner',body:'Börner, Chen and Boyack published a comprehensive 1,700-cited ARIST survey of techniques for mapping scientific disciplines using citation analysis, co-authorship networks and co-word analysis.',ref:'Börner, Chen & Boyack (2003). ARIST, 37.'},
+      {id:'ps',name:'Places & Spaces exhibit 2004',year:2004,cat:'lib',title:'Places & Spaces exhibit — Katy Börner',body:"Börner's traveling exhibit has toured 500+ venues in 30 countries, making science visualization accessible to general audiences.",ref:'Börner, K. (2004–present). scimaps.org'},
+      {id:'as',name:'"Atlas of Science" 2010',year:2010,cat:'lib',title:'"Atlas of Science" — Katy Börner',body:'Atlas of Science (MIT Press) won the 2011 ASIS&T Best Information Science Book award.',ref:'Börner, K. (2010). MIT Press.'},
+    ]},
+    
+    {id:'va',name:'Visual analytics',cat:'va',children:[
+      {id:'nvac',name:'NVAC established 2004',year:2004,cat:'va',title:'NVAC established',body:'The National Visualization and Analytics Center was established, positioning visual analytics as a distinct research domain.',ref:'Thomas & Cook (2005). IEEE.'},
+      {id:'itp',name:'"Illuminating the Path" 2005',year:2005,cat:'va',title:'"Illuminating the Path"',body:'Thomas and Cook defined visual analytics as "the science of analytical reasoning facilitated by interactive visual interfaces."',ref:'Thomas & Cook (2005). IEEE Computer Society Press.'},
+      {id:'hii',name:'HII framework 2015',year:2015,cat:'va',title:'Human-Information Interaction — Kamran Sedig',body:'Sedig and Parsons repositioned visualization as a medium for complex cognition, providing a vocabulary of analytical vs. supportive interactions for design.',ref:'Sedig & Parsons (2015). Informatics.'},
+      {id:'pbf',name:'Pattern-Based Framework 2016',year:2016,cat:'va',title:'Pattern-Based Framework — Kamran Sedig',body:'A holistic visualization design framework transcending specific domains, data types, or user groups.',ref:'Sedig & Parsons (2016). Morgan & Claypool.'},
+      {id:'vic2',name:'VICTORIOUS 2025',year:2025,cat:'va',title:'VICTORIOUS — Kamran Sedig',body:'Visual Analytics System for Scoping Review of Document Sets — directly relevant to library and information science workflows.',ref:'Haghighati & Sedig (2025). Multimodal Technologies.'},
+    ]},
+    {id:'dh',name:'Digital humanities',cat:'dh',children:[
+      {id:'wh',name:'Generous Interfaces 2015',year:2015,cat:'dh',title:'Generous Interfaces',body:'Whitelaw argued that search-box interfaces are structurally inhospitable; collections should present their full scope before any query is formed.',ref:'Whitelaw, M. (2015). Digital Humanities Quarterly.'},
+      {id:'wind',name:'CH visualization survey 2019',year:2019,cat:'dh',title:'Cultural heritage visualization survey',body:'Windhager et al. reviewed 100+ visualization systems for GLAM collections: 80% used multiple coordinated views, 81% included temporal encoding.',ref:'Windhager et al. (2019). IEEE TVCG.'},
+    ]},
+  ]};
+
+  const W=780,DURATION=400;
+  let H=340;
+  const svg=d3.select('#treeWrap').append('svg').attr('width',W).attr('height',H);
+  const g=svg.append('g').attr('transform','translate(24,0)');
+  const linkGen=d3.linkHorizontal().x(d=>d.y).y(d=>d.x);
+
+  function collapse(d){if(d.children){d._children=d.children;d._children.forEach(collapse);d.children=null;}}
+  const root=d3.hierarchy(rawData);
+  root.x0=H/2;root.y0=0;
+  
+  const treeLayout=d3.tree().nodeSize([28,186]);
+
+  function update(src){
+    treeLayout(root);
+    const nodes=root.descendants(),links=root.links();
+    const minX=d3.min(nodes,d=>d.x),maxX=d3.max(nodes,d=>d.x);
+    const newH=Math.max(340,maxX-minX+80);
+    nodes.forEach(d=>{d.x+=(-minX+40);});
+    svg.transition().duration(DURATION).attr('height',newH);H=newH;
+
+    const link=g.selectAll('.tlink').data(links,d=>d.target.data.id);
+    link.enter().append('path').attr('class','tlink').attr('fill','none')
+      .attr('d',()=>linkGen({source:{x:src.x0,y:src.y0},target:{x:src.x0,y:src.y0}}))
+      .merge(link).transition().duration(DURATION).attr('d',linkGen)
+      .attr('stroke',d=>COLORS[d.target.data.cat]||'#ccc').attr('stroke-width',1.2).attr('stroke-opacity',0.3);
+    link.exit().transition().duration(DURATION).attr('d',()=>linkGen({source:{x:src.x,y:src.y},target:{x:src.x,y:src.y}})).remove();
+
+    const node=g.selectAll('.tnode').data(nodes,d=>d.data.id);
+    const ne=node.enter().append('g').attr('class','tnode')
+      .attr('transform',()=>`translate(${src.y0},${src.x0})`).style('cursor','pointer');
+    ne.append('circle').attr('r',0);
+    const nu=ne.merge(node);
+    nu.transition().duration(DURATION).attr('transform',d=>`translate(${d.y},${d.x})`);
+    nu.select('circle').transition().duration(DURATION)
+      .attr('r',d=>d.data.cat==='root'?8:d.depth===1?6:4.5)
+      .attr('fill',d=>COLORS[d.data.cat]||'#888').attr('stroke','#faf8f3').attr('stroke-width',2);
+    nu.select('text').remove();
+    nu.each(function(d){
+      const el=d3.select(this),isLeaf=!d.children&&!d._children;
+      const lines=d.data.name.split('\n');
+      const tx=el.append('text').attr('x',isLeaf?10:-10).attr('text-anchor',isLeaf?'start':'end')
+        .attr('fill',d.depth===0?'#1a1a18':d.depth===1?COLORS[d.data.cat]:'#7a7a72')
+        .attr('font-size',d.depth===0?11:d.depth===1?12:11)
+        .attr('font-weight',d.depth<=1?'500':'400')
+        .attr('dominant-baseline','middle').attr('opacity',0)
+        .attr('font-family','Source Serif 4, Georgia, serif');
+      lines.forEach((l,i)=>tx.append('tspan').attr('x',isLeaf?10:-10).attr('dy',i===0?0:13).text(l));
+      tx.transition().duration(DURATION).attr('opacity',1);
+    });
+    nu.on('click',(e,d)=>{
+      if(d.depth===0) return;
+      if(d.depth===1){
+        if(d.children){d._children=d.children;d.children=null;}
+        else if(d._children){d.children=d._children;d._children=null;}
+        d.x0=d.x;d.y0=d.y;update(d);
+      } else if(d.data.title){
+        const col=COLORS[d.data.cat];
+        document.getElementById('trMeta').textContent=(d.data.year||'')+' · '+d.data.cat.toUpperCase();
+        document.getElementById('trMeta').style.color=col;
+        document.getElementById('trTitle').textContent=d.data.title;
+        document.getElementById('trBody').textContent=d.data.body;
+        document.getElementById('trRef').textContent=d.data.ref;
+        const det=document.getElementById('treeDetail');
+        det.classList.add('show');det.style.borderLeftColor=col;
+      }
+    });
+    nu.on('mouseenter',function(e,d){if(d.depth>0)d3.select(this).select('circle').attr('r',d.depth===1?8:6);})
+      .on('mouseleave',function(e,d){d3.select(this).select('circle').attr('r',d.depth===0?8:d.depth===1?6:4.5);});
+    nodes.forEach(d=>{d.x0=d.x;d.y0=d.y;});
+    node.exit().transition().duration(DURATION).attr('transform',`translate(${src.y},${src.x})`).remove();
+  }
+  update(root);
+})();
+
+/* ===================== SUNBURST ===================== */
+(function(){
+  const data={name:'InfoVis of\nLibrary Collections',value:1,children:[
+    {name:'Information\nVisualization',value:1,color:'#2d5a8e',children:[
+      {name:'Visual Structures',value:3,desc:'Spatial substrates, marks, graphical properties — building blocks of information displays (Card et al. 1999)'},
+      {name:'Knowledge\nCrystallization',value:3,desc:'Gaining insight from data through efficient representational schemas — the core goal of infovis (Card et al. 1999)'},
+      {name:'Interaction Design',value:2,desc:'Dynamic queries, filtering, selection — enabling users to adapt representations to their cognitive needs (Shneiderman 1992)'},
+      {name:'Treemaps',value:2,desc:'Space-filling hierarchical displays; Shneiderman (1992) — widely used for collection subject hierarchies'},
+      {name:'LifeLines',value:2,desc:'Multi-faceted parallel timelines for personal histories; Plaisant & Shneiderman (1996)'},
+    ]},
+    {name:'Text & Document\nVisualization',value:1,color:'#6b4a0e',children:[
+      {name:'DocuBurst',value:3,desc:'Radial WordNet IS-A layout overlaid with word frequencies; Collins, Carpendale & Penn (2009)'},
+      {name:'Parallel Tag\nClouds',value:3,desc:'Combines parallel coordinates and tag clouds for faceted text corpora; Collins et al. (2009). VAST Test of Time 2019'},
+      {name:'VisGets',value:2,desc:'Coordinated interactive query visualizations for web-based information; Dörk, Carpendale & Collins (2008)'},
+      {name:'Linguistic InfoVis',value:2,desc:'Canada Research Chair program at Ontario Tech led by Christopher Collins'},
+    ]},
+    {name:'Map-based &\nGeospatial',value:1,color:'#2e7d5a',children:[
+      {name:'Geolibraries',value:3,desc:'Digital libraries with geospatial access; spatial browsing introduced by Larson (1996)'},
+      {name:'VICOLEX',value:3,desc:'VIsual COLlection EXplorer — Buchel & Sedig (2009/2012), Library of Congress Ukrainian local history'},
+      {name:'Cognitive Maps',value:2,desc:'Mental representations of information space that users build through interaction; Buchel & Sedig (2014)'},
+      {name:'Ontological\nProperties',value:2,desc:'Language, date, place, format, subject — collection attributes visualized to reveal patterns (Buchel 2012)'},
+    ]},
+    {name:'Visual Analytics\n& Sensemaking',value:1,color:'#7a4a1e',children:[
+      {name:'HII Framework',value:3,desc:'Human-Information Interaction — Sedig & Parsons (2015/2016); visualization as a medium for complex cognition'},
+      {name:'Pattern-Based\nDesign',value:3,desc:'Holistic visualization design framework transcending domains; Sedig & Parsons (Morgan & Claypool 2016/2022)'},
+      {name:'Analytical Reasoning',value:2,desc:'"Science of analytical reasoning facilitated by interactive visual interfaces"; Thomas & Cook (2005)'},
+      {name:'Decision Support',value:2,desc:'Tight coupling of automated analysis and interactive visualization; NVAC research program (2004–present)'},
+    ]},
+    {name:'Knowledge\nDomain Mapping',value:1,color:'#8b2635',children:[
+      {name:'Science Maps',value:3,desc:'Cartographic maps of scientific disciplines using citation analysis; Börner, Chen & Boyack (2003)'},
+      {name:'Places & Spaces',value:2,desc:'Traveling museum exhibit; Katy Börner (2004–present) — 500+ venues in 30 countries'},
+      {name:'Atlas of Science',value:2,desc:'MIT Press (2010), ASIS&T Best Book 2011 — Katy Börner'},
+      {name:'Bibliometrics',value:2,desc:'Mapping knowledge structure through co-citation, co-authorship, and keyword co-occurrence'},
+    ]},
+    {name:'Digital Libraries\n& Collections',value:1,color:'#5a3d7a',children:[
+      {name:'Generous\nInterfaces',value:3,desc:'Presenting full collection scope before any query; Whitelaw (2015) — alternative to empty search boxes'},
+      {name:'Collections as Data',value:2,desc:'Treating digital holdings as computational datasets; Europeana, DPLA initiatives'},
+      {name:'GLAM Labs',value:2,desc:'Galleries, Libraries, Archives & Museums labs for creative computational reuse of cultural heritage data'},
+      {name:'Cultural Heritage\nSurvey',value:3,desc:'Windhager et al. (2019) reviewed 100+ visualization systems for GLAM collections in IEEE TVCG'},
+    ]},
+  ]};
+
+  const size=Math.min(580,window.innerWidth-80);
+  const R=size/2;
+  const svg=d3.select('#sbChart').append('svg').attr('viewBox',`0 0 ${size} ${size}`).attr('width','100%').style('display','block');
+  const g=svg.append('g').attr('transform',`translate(${R},${R})`);
+  const part=d3.partition().size([2*Math.PI,R-20]);
+  const root=d3.hierarchy(data).sum(d=>d.children?0:d.value).sort((a,b)=>b.value-a.value);
+  part(root);
+
+  const arc=d3.arc().startAngle(d=>d.x0).endAngle(d=>d.x1)
+    .innerRadius(d=>d.y0).outerRadius(d=>d.y1-2).padAngle(0.012).padRadius(60).cornerRadius(3);
+
+  function lighten(hex,amt){const c=d3.hsl(d3.color(hex));c.l=Math.min(1,c.l+amt);c.s=Math.max(0,c.s-0.1);return c.toString();}
+  function getColor(d){
+    if(d.depth===0) return '#f5f2ec';
+    const anc=d.ancestors().find(a=>a.depth===1);
+    const base=anc?anc.data.color:'#888';
+    return d.depth===1?base:lighten(base,0.38);
+  }
+  function getTxt(d){
+    const anc=d.ancestors().find(a=>a.depth===1);
+    const base=anc?anc.data.color:'#888';
+    if(d.depth===0) return '#1a1a18';
+    if(d.depth===1) return '#fff';
+    const c=d3.hsl(d3.color(base));c.l=Math.max(0,c.l-0.25);return c.toString();
+  }
+
+  const tt=document.getElementById('sbTooltip');
+  const paths=g.selectAll('path').data(root.descendants()).join('path')
+    .attr('d',arc).attr('fill',d=>getColor(d)).attr('stroke','#faf8f3').attr('stroke-width',0.5)
+    .style('cursor',d=>d.depth>0?'pointer':'default')
+    .on('mousemove',(event,d)=>{
+      if(!d.depth) return;
+      tt.innerHTML=`<strong style="color:#1a1a18">${d.data.name.replace(/\n/g,' ')}</strong><br><span style="color:#7a7a72;font-size:11px">${d.data.desc||''}</span>`;
+      tt.style.display='block'; tt.style.left=(event.clientX+14)+'px'; tt.style.top=(event.clientY-10)+'px';
+    })
+    .on('mouseleave',()=>tt.style.display='none')
+    .on('click',clicked);
+
+  g.selectAll('text').data(root.descendants().filter(d=>d.depth>0)).join('text')
+    .each(function(d){
+      const el=d3.select(this);
+      const r=(d.y0+d.y1)/2,arcLen=(d.x1-d.x0)*r;
+      if(arcLen<24) return;
+      const angle=((d.x0+d.x1)/2);
+      const rotate=angle*180/Math.PI-90;
+      const flip=angle>Math.PI?180:0;
+      el.attr('transform',`rotate(${rotate}) translate(${r},0) rotate(${flip})`)
+        .attr('text-anchor','middle').attr('dominant-baseline','middle').style('pointer-events','none');
+      d.data.name.split('\n').forEach((l,i)=>el.append('tspan').attr('x',0).attr('dy',i===0?(d.data.name.split('\n').length>1?'-0.55em':'0'):'1.1em').attr('font-size',d.depth===1?10:9).attr('font-weight',d.depth===1?'500':'400').attr('fill',getTxt(d)).attr('font-family',"'JetBrains Mono',monospace").text(l));
+    });
+
+  const cLines=data.name.split('\n');
+  const centre=g.append('text').attr('text-anchor','middle').attr('dominant-baseline','middle').style('cursor','pointer').on('click',()=>clicked(null,root));
+  cLines.forEach((l,i)=>centre.append('tspan').attr('x',0).attr('dy',i===0?(cLines.length>1?'-0.55em':'0'):'1.2em').attr('font-size',11).attr('font-weight','500').attr('fill','#1a1a18').attr('font-family',"'Source Serif 4',Georgia,serif").text(l));
+
+  root.each(d=>{d.current={...d};});
+  function clicked(event,p){
+    if(!p)p=root;
+    document.getElementById('sbBread').textContent=p.ancestors().reverse().map(d=>d.data.name.replace(/\n/g,' ')).join(' › ');
+    root.each(d=>{d.target={
+      x0:Math.max(0,Math.min(1,(d.x0-p.x0)/(p.x1-p.x0)))*2*Math.PI,
+      x1:Math.max(0,Math.min(1,(d.x1-p.x0)/(p.x1-p.x0)))*2*Math.PI,
+      y0:Math.max(0,d.y0-p.depth*(R/root.height)),
+      y1:Math.max(0,d.y1-p.depth*(R/root.height)),
+    };});
+    paths.transition().duration(600)
+      .tween('data',d=>{const i=d3.interpolate(d.current||d,d.target);return t=>{d.current=i(t);};})
+      .attrTween('d',d=>()=>arc(d.current||d)).attr('fill-opacity',d=>d.target.y0<1?1:0.15);
+  }
+})();
+</script>
+</body>
+</html>
