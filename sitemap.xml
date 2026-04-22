@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://dataforlibs.githib.io/</loc>
+    <loc>https://dataforlibs.github.io/</loc>
   </url>
   <url>
     <loc>https://dataforlibs.github.io/blog.html</loc>
   </url>
-  <!-- Subpage 2 -->
+ 
   <url>
     <loc>https://dataforlibs.github.io/about.html</loc>
   </url>
@@ -16,7 +16,7 @@
   <url>
     <loc>https://dataforlibs.github.io/old-toronto/</loc>
   </url>
-  <!-- Subpage 2 -->
+
   <url>
     <loc>https://dataforlibs.github.io/rareBooks/</loc>
   </url>
@@ -25,11 +25,5 @@
   </url>
   <url>
     <loc>https://dataforlibs.github.io/infovis-library-article1.html</loc>
-  </url>
-   <url>
-    <loc>https://obuchel.github.io/segregation_map/</loc>
-  </url>
-   <url>
-    <loc>https://ukr-books.vercel.app/</loc>
   </url>
 </urlset>
