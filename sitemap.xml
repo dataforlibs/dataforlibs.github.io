@@ -1,27 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
     <loc>https://dataforlibs.github.io/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
   </url>
-  <url>
-    <loc>https://dataforlibs.github.io/blog.html</loc>
-  </url>
+
   <url>
     <loc>https://dataforlibs.github.io/about.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
   </url>
+
   <url>
-    <loc>https://dataforlibs.github.io/ukrainian-collections-app/</loc>
+    <loc>https://dataforlibs.github.io/blog.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
-  <url>
-    <loc>https://dataforlibs.github.io/old-toronto/</loc>
-  </url>
-  <url>
-    <loc>https://dataforlibs.github.io/rareBooks/</loc>
-  </url>
-  <url>
-    <loc>https://dataforlibs.github.io/methods_note.html</loc>
-  </url>
+
   <url>
     <loc>https://dataforlibs.github.io/infovis-library-article1.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://dataforlibs.github.io/library-catalog-tutorial.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://dataforlibs.github.io/old-toronto/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://dataforlibs.github.io/rareBooks/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://dataforlibs.github.io/ukrainian_collections/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://dataforlibs.github.io/ukrainian-collections-app/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://dataforlibs.github.io/ukrainian-collections-app/methods_note.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
 </urlset>
