@@ -4,19 +4,24 @@
 <head>
     <meta charset="utf-8"/>
     <title>Data Science for Libraries — Infovis, Cultural Collections, Diversity, and Visualization</title>
-    <meta name="description" content="Research portfolio exploring data science methods for libraries: infovis and information visualization for library collections, Ukrainian cultural heritage visualization, stolen artifact tracking, diversity measurement, and community book-sharing platforms for the diaspora."/>
-    <meta name="keywords" content="infovis, information visualization, library information visualization, library collection visualization, visualization of library collections, Ukrainian cultural collections, library data science, cultural heritage visualization, temporal visualization, diversity in libraries, Ukrainian artifacts, stolen cultural heritage, diaspora book sharing, bibliometrics, social networks libraries, rare books metadata standards, MARC cataloging, IIIF, Dublin Core, archival collections"/>
+    <meta name="description" content="Research portfolio exploring data science methods for libraries: infovis and information visualization for library collections, Ukrainian cultural heritage visualization, stolen artifact tracking, diversity measurement, community book-sharing platforms for the diaspora, and a study of Library of Congress catalog growth and Jefferson's 1815 classification."/>
+    <meta name="keywords" content="infovis, information visualization, library information visualization, library collection visualization, visualization of library collections, Ukrainian cultural collections, library data science, cultural heritage visualization, temporal visualization, diversity in libraries, Ukrainian artifacts, stolen cultural heritage, diaspora book sharing, bibliometrics, social networks libraries, rare books metadata standards, MARC cataloging, IIIF, Dublin Core, archival collections, Library of Congress Classification, Thomas Jefferson library classification, catalog growth, MARC records"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
 
     <!-- Open Graph -->
     <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="Data Science for Libraries"/>
+    <meta property="og:locale" content="en_CA"/>
     <meta property="og:url" content="https://dataforlibs.github.io"/>
     <meta property="og:title" content="Data Science for Libraries — Infovis, Cultural Collections, Diversity &amp; Visualization"/>
-    <meta property="og:description" content="Research portfolio: infovis and information visualization for library collections, Ukrainian cultural heritage visualization, stolen artifact tracking, diversity measurement in libraries, and diaspora book-sharing platforms."/>
+    <meta property="og:description" content="Research portfolio: infovis and information visualization for library collections, Ukrainian cultural heritage visualization, stolen artifact tracking, diversity measurement in libraries, and diaspora book-sharing platforms, and Library of Congress catalog growth."/>
     <meta property="og:image" content="https://dataforlibs.github.io/stolen_treasures.png"/>
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="robots" content="index, follow, max-image-preview:large"/>
+    <meta name="author" content="Olha Buchel"/>
+    <meta name="theme-color" content="#ffffff"/>
     <meta name="twitter:title" content="Data Science for Libraries — Infovis, Cultural Collections &amp; Visualization"/>
     <meta name="twitter:description" content="Infovis and information visualization for library collections, Ukrainian cultural heritage, library diversity measurement, and diaspora book sharing."/>
     <meta name="twitter:image" content="https://dataforlibs.github.io/stolen_treasures.png"/>
@@ -122,6 +127,13 @@
     <link href="https://cdn.prod.website-files.com/img/webclip.png" rel="apple-touch-icon"/>
 
     <style>
+    .skip-link{position:absolute;left:-9999px;top:0;background:#1e1c18;color:#fff;padding:8px 14px;z-index:1000;font:13px sans-serif}
+    .skip-link:focus{left:8px;top:8px}
+    a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:3px solid #c46a4a;outline-offset:2px}
+    #main-content:focus{outline:none}
+    @media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+    </style>
+    <style>
     .navigation-bar { background: white; position: relative; padding: 0; border: none; }
     .navigation-bar .w-container { display: flex; align-items: center; justify-content: space-between; padding: 30px 80px; max-width: none; margin: 0; }
     .brand-link { text-decoration: none; }
@@ -184,6 +196,7 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navigation-bar w-nav">
         <div class="w-container">
             <a href="index.html" aria-current="page" class="brand-link w-nav-brand w--current">
@@ -216,7 +229,7 @@
     }
     </script>
 
-    <div class="section">
+    <div class="section" id="main-content" role="main" tabindex="-1">
         <div class="w-container">
             <div class="w-dyn-list">
                 <div role="list" class="w-dyn-items w-row">
@@ -367,7 +380,7 @@
 
                         <div role="listitem" class="w-dyn-item w-col w-col-4">
                             <a href="https://dataforlibs.github.io/LCC/index.html" class="photo-link-block w-inline-block">
-                                <img alt="Did Jefferson's Library Shape What We Know? Growth curves of Library of Congress subclasses with and without a Jefferson counterpart" src="lcc.png" sizes="(max-width: 767px) 96vw, (max-width: 991px) 229px, 300px" srcset="lcc.png 500w, lcc.png 700w"/>
+                                <img alt="Did Jefferson's Library Shape What We Know? Growth curves of Library of Congress subclasses with and without a Jefferson counterpart" src="lcc.png" width="1000" height="525" loading="lazy" sizes="(max-width: 767px) 96vw, (max-width: 991px) 229px, 300px" srcset="lcc.png 500w, lcc.png 700w"/>
                                 <h2 class="title">Did Jefferson's Library Shape What We Know?</h2>
                             </a>
                             <p class="project-desc">Interactive analysis of 9.5 million Library of Congress catalog records testing whether Jefferson's 1815 classification left a trace in how the catalog grew. Subclasses absent from his scheme grew more and peaked later.</p>
