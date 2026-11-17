@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>Data Science for Libraries — Infovis, Cultural Collections, Diversity, and Visualization</title>
-    <meta name="description" content="Research portfolio on data science for libraries: infovis and information visualization of library collections, interactive historical maps of Ukraine (VICOLEX), Ukrainian cultural heritage and stolen artifacts, Library of Congress catalog growth, Long COVID literature, urban segregation and library access, and diaspora book sharing."/>
+    <meta name="description" content="Research portfolio on data science for libraries: infovis and information visualization of library collections, interactive historical maps of Ukraine (VICOLEX), Ukrainian cultural heritage and stolen artifacts, Library of Congress catalog growth, Long COVID literature and citation network, urban segregation and library access, and diaspora book sharing."/>
     <meta name="keywords" content="infovis, information visualization, library information visualization, library collection visualization, visualization of library collections, Ukrainian cultural collections, library data science, cultural heritage visualization, temporal visualization, diversity in libraries, Ukrainian artifacts, stolen cultural heritage, diaspora book sharing, bibliometrics, social networks libraries, rare books metadata standards, MARC cataloging, IIIF, Dublin Core, archival collections, Library of Congress Classification, Thomas Jefferson library classification, catalog growth, MARC records, VICOLEX, historical maps of Ukraine, Ukraine history maps, morphing maps, Long COVID bibliometrics, lifepaths, urban segregation, Library of Congress DK508"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
 
@@ -111,6 +111,12 @@
           "name": "Information Visualization of Library Collections",
           "url": "https://dataforlibs.github.io/infovis-library-article1.html",
           "description": "Long-form article on infovis, information visualization, and the visualization of library collections, covering timelines, intellectual lineage, digital heritage, and visual analytics."
+        },
+        {
+          "@type": "WebApplication",
+          "name": "Long COVID Citation Atlas",
+          "url": "https://obuchel.github.io/litcovid-network-explorer/",
+          "description": "Interactive reference and citation network of 286,342 Long COVID papers, with community detection, overview networks and ego networks showing what a paper cites and what has cited it."
         },
         {
           "@type": "WebApplication",
@@ -378,20 +384,6 @@
                     <div role="list" class="w-dyn-items w-row">
 
                         <div role="listitem" class="w-dyn-item w-col w-col-4">
-                            <a href="https://dataforlibs.github.io/LCC/index.html" class="photo-link-block w-inline-block">
-                                <img alt="Did Jefferson's Library Shape What We Know? Growth curves of Library of Congress subclasses with and without a Jefferson counterpart" src="lcc.png" sizes="(max-width: 767px) 96vw, (max-width: 991px) 229px, 300px" srcset="lcc.png 500w, lcc.png 700w"/>
-                                <h2 class="title">Did Jefferson's Library Shape What We Know?</h2>
-                            </a>
-                            <p class="project-desc">Interactive analysis of 9.5 million Library of Congress catalog records testing whether Jefferson's 1815 classification left a trace in how the catalog grew. Subclasses absent from his scheme grew more and peaked later.</p>
-                            <div class="project-tags">
-                                <span class="tag">Library Classification</span>
-                                <span class="tag">Catalog Growth</span>
-                                <span class="tag">Digital Humanities</span>
-                                <span class="tag">Visualization</span>
-                            </div>
-                        </div>
-
-                        <div role="listitem" class="w-dyn-item w-col w-col-4">
                             <a href="https://obuchel.github.io/litcovid-explorer/long_covid_dashboard_v2_enhanced__11_6_1.html" class="photo-link-block w-inline-block" target="_blank" rel="noopener noreferrer">
                                 <img alt="Long COVID Trees dashboard: 14,759 articles with subject and document-type bar charts and impact factor and citation distributions" src="longcovid_trees.png" sizes="(max-width: 767px) 96vw, (max-width: 991px) 229px, 300px" srcset="longcovid_trees.png 500w, longcovid_trees.png 700w"/>
                                 <h2 class="title">Long COVID Trees &mdash; Literature Explorer</h2>
@@ -421,11 +413,40 @@
                             </div>
                         </div>
 
+                        <div role="listitem" class="w-dyn-item w-col w-col-4">
+                            <a href="https://obuchel.github.io/litcovid-network-explorer/" class="photo-link-block w-inline-block" target="_blank" rel="noopener noreferrer">
+                                <img alt="Long COVID Citation Atlas: an overview network of papers coloured by literature cluster, and the ego network of one paper with its references and citations" src="longcovid_atlas.png" sizes="(max-width: 767px) 96vw, (max-width: 991px) 229px, 300px" srcset="longcovid_atlas.png 500w, longcovid_atlas.png 700w"/>
+                                <h2 class="title">Long COVID Citation Atlas</h2>
+                            </a>
+                            <p class="project-desc">Reference and citation lineage across 286,342 Long COVID papers. Start from an overview of the most connected papers grouped into literature clusters, then open any paper to see its ego network: what it cites and what has cited it since.</p>
+                            <div class="project-tags">
+                                <span class="tag">Long COVID</span>
+                                <span class="tag">Citation Network</span>
+                                <span class="tag">Ego Network</span>
+                                <span class="tag">Community Detection</span>
+                                <span class="tag">Visualization</span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
                 <div>
                     <div role="list" class="w-dyn-items w-row">
+
+                        <div role="listitem" class="w-dyn-item w-col w-col-4">
+                            <a href="https://dataforlibs.github.io/LCC/index.html" class="photo-link-block w-inline-block">
+                                <img alt="Did Jefferson's Library Shape What We Know? Growth curves of Library of Congress subclasses with and without a Jefferson counterpart" src="lcc.png" sizes="(max-width: 767px) 96vw, (max-width: 991px) 229px, 300px" srcset="lcc.png 500w, lcc.png 700w"/>
+                                <h2 class="title">Did Jefferson's Library Shape What We Know?</h2>
+                            </a>
+                            <p class="project-desc">Interactive analysis of 9.5 million Library of Congress catalog records testing whether Jefferson's 1815 classification left a trace in how the catalog grew. Subclasses absent from his scheme grew more and peaked later.</p>
+                            <div class="project-tags">
+                                <span class="tag">Library Classification</span>
+                                <span class="tag">Catalog Growth</span>
+                                <span class="tag">Digital Humanities</span>
+                                <span class="tag">Visualization</span>
+                            </div>
+                        </div>
 
                         <div role="listitem" class="w-dyn-item w-col w-col-4">
                             <a href="https://dataforlibs.github.io/VICOLEX/#/contour-morph" class="photo-link-block w-inline-block" target="_blank" rel="noopener noreferrer">
@@ -462,6 +483,12 @@
                                 <span class="tag">Validation</span>
                             </div>
                         </div>
+
+                    </div>
+                </div>
+
+                <div>
+                    <div role="list" class="w-dyn-items w-row">
 
                         <div role="listitem" class="w-dyn-item w-col w-col-4">
                             <a href="infovis-library-article1.html" class="photo-link-block w-inline-block">
