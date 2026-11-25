@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>Data Science for Libraries — Infovis, Cultural Collections, Diversity, and Visualization</title>
-    <meta name="description" content="Research portfolio on data science for libraries: infovis and information visualization of library collections, interactive historical maps of Ukraine (VICOLEX), Ukrainian cultural heritage and stolen artifacts, Library of Congress catalog growth, Long COVID literature and citation network, urban segregation and library access, and diaspora book sharing."/>
+    <meta name="description" content="Research portfolio on data science for libraries: infovis and information visualization of library collections, interactive historical maps of Ukraine (VICOLEX), a map of Ukrainian cultural heritage and stolen artifacts (Stolen Treasures), Library of Congress catalog growth, Long COVID literature and citation network, urban segregation and library access, and diaspora book sharing."/>
     <meta name="keywords" content="infovis, information visualization, library information visualization, library collection visualization, visualization of library collections, Ukrainian cultural collections, library data science, cultural heritage visualization, temporal visualization, diversity in libraries, Ukrainian artifacts, stolen cultural heritage, diaspora book sharing, bibliometrics, social networks libraries, rare books metadata standards, MARC cataloging, IIIF, Dublin Core, archival collections, Library of Congress Classification, Thomas Jefferson library classification, catalog growth, MARC records, VICOLEX, historical maps of Ukraine, Ukraine history maps, morphing maps, Long COVID bibliometrics, lifepaths, urban segregation, Library of Congress DK508"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
 
@@ -80,7 +80,7 @@
           "@type": "SoftwareApplication",
           "name": "Stolen Treasures — Ukrainian Archaeological Artifacts",
           "url": "https://dataforlibs.github.io/ukrainian-collections-app/",
-          "description": "Interactive visualization of Ukrainian archaeological and cultural artifacts held in Russian museums, including the State Historical Museum and the Hermitage."
+          "description": "Interactive map and visualization of Ukrainian archaeological and cultural artifacts held in Russian museums, including the State Historical Museum and the Hermitage."
         },
         {
           "@type": "SoftwareApplication",
@@ -638,7 +638,7 @@
             clearBtn.style.display = q ? 'block' : 'none';
             chips.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-q').toLowerCase() === q ? 'true' : 'false'); });
             if (!q) { restore(); empty.hidden = true; status.textContent = ''; return; }
-            var tokens = q.split(/\s+/).map(function (t) { return t.length > 3 ? t.replace(/s$/, '') : t; });
+            var tokens = q.split(/\s+/).map(function (t) { t = t.length > 3 ? t.replace(/s$/, '') : t; return /^ukrain/.test(t) ? 'ukrain' : t; });   /* Ukraine, Ukrainian, Ukrainians all match */
             var shown = [];
             cards.forEach(function (c, i) {
                 var ok = tokens.every(function (t) { return text[i].indexOf(t) !== -1; });
